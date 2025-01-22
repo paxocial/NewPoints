@@ -16,11 +16,8 @@
         <!-- Main Content Area -->
         <div class="col-md-9">
             <!-- Display Errors -->
-            <if $newpoints_errors>
-                <div class="alert alert-danger" role="alert">
+
                     {$newpoints_errors}
-                </div>
-            </if>
 
             <!-- Main Content -->
             <div class="card mb-4">
@@ -30,25 +27,24 @@
             </div>
 
             <!-- Action Buttons -->
-            <if $newpoints_buttons>
+            
                 <div class="mb-3">
                     {$newpoints_buttons}
                 </div>
-            </if>
+            
 
             <!-- Pagination -->
-            <if $newpoints_pagination>
+            
                 <nav aria-label="Page navigation">
                     {$newpoints_pagination}
                 </nav>
-            </if>
+            
 
             <!-- Additional Content -->
-            <if $newpoints_additional>
                 <div class="mt-4">
                     {$newpoints_additional}
                 </div>
-            </if>
+            
         </div>
     </div>
 </div>

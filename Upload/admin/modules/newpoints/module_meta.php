@@ -40,7 +40,12 @@ function newpoints_meta(): bool
 {
     global $page, $lang;
 
-    language_load();
+    if (function_exists('\Newpoints\Core\language_load')) {
+        language_load();
+    } else {
+        isset($lang->newpoints) || $lang->load('newpoints');
+        isset($lang->nav_plugins) || $lang->load('newpoints_module_meta');
+    }
 
     $sub_menu_items = [
         10 => [
