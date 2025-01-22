@@ -1,24 +1,30 @@
-<div class="table-responsive mb-4">
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th colspan="{$column_span}"><strong>{$lang->newpoints_logs_page_table_title}</strong></th>
-            </tr>
-            <tr>
-                <th class="text-center" style="width:5%"><strong>{$lang->newpoints_logs_page_table_id}</strong></th>
-                <th style="width:15%"><strong>{$lang->newpoints_logs_page_table_action}</strong></th>
-                {$thead_user}
-                <th class="text-center"><strong>{$lang->newpoints_logs_page_table_points}</strong></th>
-                <th class="text-center" style="width:15%"><strong>{$lang->newpoints_logs_page_table_action_primary}</strong></th>
-                <th class="text-center" style="width:15%"><strong>{$lang->newpoints_logs_page_table_action_secondary}</strong></th>
-                <th class="text-center" style="width:15%"><strong>{$lang->newpoints_logs_page_table_action_tertiary}</strong></th>
-                <th class="text-center" style="width:5%"><strong>{$lang->newpoints_logs_page_table_action_type}</strong></th>
-                <th class="text-center" style="width:15%"><strong>{$lang->newpoints_logs_page_table_action_date}</strong></th>
-                {$thead_options}
-            </tr>
-        </thead>
-        <tbody>
-            {$logs_rows}
-        </tbody>
-    </table>
-</div>
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}"
+       class="tborder">
+    <tr>
+        <td class="thead" colspan="{$column_span}"><strong>{$lang->newpoints_logs_page_table_title}</strong></td>
+    </tr>
+    <tr>
+        <td class="tcat" width="5%" align="center"><strong>{$lang->newpoints_logs_page_table_id}</strong></td>
+        <td class="tcat" width="15%"><strong>{$lang->newpoints_logs_page_table_action}</strong></td>
+        {$thead_user}
+        <td class="tcat" align="center"><strong>{$lang->newpoints_logs_page_table_points}</strong></td>
+        <td class="tcat" width="15%" align="center">
+            <strong>{$lang->newpoints_logs_page_table_action_primary}</strong>
+        </td>
+        <td class="tcat" width="15%" align="center">
+            <strong>{$lang->newpoints_logs_page_table_action_secondary}</strong>
+        </td>
+        <td class="tcat" width="15%" align="center">
+            <strong>{$lang->newpoints_logs_page_table_action_tertiary}</strong>
+        </td>
+        <td class="tcat" width="5%" align="center">
+            <strong>{$lang->newpoints_logs_page_table_action_type}</strong>
+        </td>
+        <td class="tcat" width="15%" align="center">
+            <strong>{$lang->newpoints_logs_page_table_action_date}</strong>
+        </td>
+        {$thead_options}
+    </tr>
+    {$logs_rows}
+</table>
+<br/>

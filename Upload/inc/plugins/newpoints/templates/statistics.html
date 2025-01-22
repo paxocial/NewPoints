@@ -1,52 +1,28 @@
-<div class="container my-4">
-    <!-- Richest Users Table -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <strong>{$lang->newpoints_richest_users}</strong>
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-striped mb-0">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">{$lang->newpoints_user}</th>
-                            <th scope="col" class="text-center">{$lang->newpoints_amount}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {$richest_users}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Last Donations Table -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <strong>{$lang->newpoints_last_donations}</strong>
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-striped mb-0">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">{$lang->newpoints_from}</th>
-                            <th scope="col">{$lang->newpoints_to}</th>
-                            <th scope="col" class="text-center">{$lang->newpoints_amount}</th>
-                            <th scope="col" class="text-center">{$lang->newpoints_date}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {$last_donations}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Additional Statistics Items -->
-    <div class="mb-4">
-        {$statistics_items}
-    </div>
-</div>
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}"
+       class="tborder">
+    <tr>
+        <td class="thead" colspan="2"><strong>{$lang->newpoints_richest_users}</strong></td>
+    </tr>
+    <tr>
+        <td class="tcat" width="50%"><strong>{$lang->newpoints_user}</strong></td>
+        <td class="tcat" width="50%" align="center"><strong>{$lang->newpoints_amount}</strong>
+        </td>
+    </tr>
+    {$richest_users}
+</table>
+<br/>
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}"
+       class="tborder">
+    <tr>
+        <td class="thead" colspan="4"><strong>{$lang->newpoints_last_donations}</strong></td>
+    </tr>
+    <tr>
+        <td class="tcat" width="30%"><strong>{$lang->newpoints_from}</strong></td>
+        <td class="tcat" width="30%"><strong>{$lang->newpoints_to}</strong></td>
+        <td class="tcat" width="20%" align="center"><strong>{$lang->newpoints_amount}</strong></td>
+        <td class="tcat" width="20%" align="center"><strong>{$lang->newpoints_date}</strong></td>
+    </tr>
+    {$last_donations}
+</table>
+<br/>
+{$statistics_items}

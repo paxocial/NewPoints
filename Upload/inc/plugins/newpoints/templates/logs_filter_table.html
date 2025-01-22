@@ -1,75 +1,66 @@
-<div class="mb-4">
-    <form action="{$mybb->settings['bburl']}/{$page_url}" method="get">
-        <!-- Hidden Inputs -->
-        <input type="hidden" name="action" value="logs"/>
-        <input type="hidden" name="manage" value="{$mybb->input['manage']}"/>
-
-        <!-- Filter Form Card -->
-        <div class="card">
-            <div class="card-header">
-                <strong>{$lang->newpoints_logs_page_filter_table_title}</strong>
-            </div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <label for="actions_select" class="col-sm-4 col-form-label"><strong>{$lang->newpoints_logs_page_filter_table_actions}:</strong></label>
-                    <div class="col-sm-8">
-                        {$actions_select}
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="username" class="col-sm-4 col-form-label"><strong>{$lang->newpoints_logs_page_filter_table_user}:</strong></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="username" name="filter[username]" size="35"
-                               maxlength="{$mybb->settings['maxnamelength']}" value="{$filter_user_name}"/>
-                        <link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css?ver=1807">
-                        <script type="text/javascript"
-                                src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
-                        <script type="text/javascript">
-                            <!--
-                            if (use_xmlhttprequest == "1") {
-                                MyBB.select2();
-                                $("#username").select2({
-                                    placeholder: "{$lang->search_user}",
-                                    minimumInputLength: 2,
-                                    multiple: false,
-                                    allowClear: true,
-                                    ajax: { 
-                                        url: "xmlhttp.php?action=get_users",
-                                        dataType: 'json',
-                                        delay: 250, // Added delay for better UX
-                                        data: function (params) {
-                                            return {
-                                                query: params.term, // search term
-                                            };
-                                        },
-                                        processResults: function (data) { 
-                                            return {
-                                                results: data
-                                            };
-                                        },
-                                        cache: true
-                                    },
-                                    initSelection: function (element, callback) {
-                                        var value = $(element).val();
-                                        if (value !== "") {
-                                            callback({
-                                                id: value,
-                                                text: value
-                                            });
-                                        }
-                                    },
-                                });
-                            }
-                            // -->
-                        </script>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer text-center">
-                <button type="submit" name="submit" value="{$lang->newpoints_submit}" class="btn btn-primary">
-                    {$lang->newpoints_submit}
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
+<br class="clear"/>
+<form action="{$mybb->settings['bburl']}/{$page_url}" method="get">
+    <input type="hidden" name="action" value="logs"/>
+    <input type="hidden" name="manage" value="{$mybb->input['manage']}"/>
+    <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}"
+           class="tborder">
+        <tr>
+            <td class="thead" colspan="{$column_span}"><strong>{$lang->newpoints_logs_page_filter_table_title}</strong>
+            </td>
+        </tr>
+        <tr>
+            <td class="trow1" width="20%"><strong>{$lang->newpoints_logs_page_filter_table_actions}:</strong></td>
+            <td class="trow1">{$actions_select}</td>
+        </tr>
+        <tr>
+            <td class="trow2"><strong>{$lang->newpoints_logs_page_filter_table_user}:</strong></td>
+            <td class="trow2">
+                <input type="text" class="textbox" id="username" name="filter[username]" size="35"
+                       maxlength="{$mybb->settings['maxnamelength']}" value="{$filter_user_name}"/>
+                <link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css?ver=1807">
+                <script type="text/javascript"
+                        src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
+                <script type="text/javascript">
+                    <!--
+                    if (use_xmlhttprequest == "1") {
+                        MyBB.select2();
+                        $("#username").select2({
+                            placeholder: "{$lang->search_user}",
+                            minimumInputLength: 2,
+                            multiple: false,
+                            allowClear: true,
+                            ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+                                url: "xmlhttp.php?action=get_users",
+                                dataType: 'json',
+                                data: function (term, page) {
+                                    return {
+                                        query: term, // search term
+                                    };
+                                },
+                                results: function (data, page) { // parse the results into the format expected by Select2.
+                                    // since we are using custom formatting functions we do not need to alter remote JSON data
+                                    return {results: data};
+                                }
+                            },
+                            initSelection: function (element, callback) {
+                                var value = $(element).val();
+                                if (value !== "") {
+                                    callback({
+                                        id: value,
+                                        text: value
+                                    });
+                                }
+                            },
+                        });
+                    }
+                    // -->
+                </script>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <div align="center">
+        <input type="submit" name="submit" value="{$lang->newpoints_submit}" class="button"/>
+    </div>
+</form>
+<br/>

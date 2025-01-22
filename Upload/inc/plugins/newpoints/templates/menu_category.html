@@ -1,14 +1,13 @@
-<div class="accordion mb-2" id="accordion{$collapsed_name}">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="heading{$collapsed_name}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{$collapsed_name}" aria-expanded="false" aria-controls="collapse{$collapsed_name}">
-                {$menu_category_title}
-            </button>
-        </h2>
-        <div id="collapse{$collapsed_name}" class="accordion-collapse collapse" aria-labelledby="heading{$collapsed_name}" data-bs-parent="#accordion{$collapsed_name}">
-            <div class="accordion-body p-2">
-                {$options}
-            </div>
+<tbody>
+<tr>
+    <td class="tcat tcat_menu tcat_collapse{$collapsed_image}">
+        <div class="expcolimage">
+            <img src="{$theme['imgdir']}/collapse{$collapsed_image}.png" id="{$collapsed_name}_img" class="expander" alt="{$expanded_alternative_text}" title="{$expanded_alternative_text}" />
         </div>
-    </div>
-</div>
+        <div><strong class="smalltext">{$menu_category_title}</strong></div>
+    </td>
+</tr>
+</tbody>
+<tbody style="{$expanded_display}" id="{$collapsed_name}_e">
+{$options}
+</tbody>

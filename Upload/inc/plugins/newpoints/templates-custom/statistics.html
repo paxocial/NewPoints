@@ -1,0 +1,52 @@
+<div class="container my-4">
+    <!-- Richest Users Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <strong>{$lang->newpoints_richest_users}</strong>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">{$lang->newpoints_user}</th>
+                            <th scope="col" class="text-center">{$lang->newpoints_amount}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {$richest_users}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Last Donations Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <strong>{$lang->newpoints_last_donations}</strong>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">{$lang->newpoints_from}</th>
+                            <th scope="col">{$lang->newpoints_to}</th>
+                            <th scope="col" class="text-center">{$lang->newpoints_amount}</th>
+                            <th scope="col" class="text-center">{$lang->newpoints_date}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {$last_donations}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Statistics Items -->
+    <div class="mb-4">
+        {$statistics_items}
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="accordion mb-2" id="accordion{$collapsed_name}">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{$collapsed_name}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{$collapsed_name}" aria-expanded="false" aria-controls="collapse{$collapsed_name}">
+                {$menu_category_title}
+            </button>
+        </h2>
+        <div id="collapse{$collapsed_name}" class="accordion-collapse collapse" aria-labelledby="heading{$collapsed_name}" data-bs-parent="#accordion{$collapsed_name}">
+            <div class="accordion-body p-2">
+                {$options}
+            </div>
+        </div>
+    </div>
+</div>
