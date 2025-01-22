@@ -1,30 +1,40 @@
 <form action="{$mybb->settings['bburl']}/{$newpoints_file}" method="POST">
+    <!-- Hidden Inputs -->
     <input type="hidden" name="postcode" value="{$mybb->post_code}"/>
     <input type="hidden" name="action" value="do_donate"/>
     <input type="hidden" name="pid" value="{$pid}"/>
-    <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
-        <tr>
-            <td class="thead" colspan="2"><strong>{$lang->newpoints_donate}</strong></td>
-        </tr>
-        <tr>
-            <td class="trow1" width="50%"><strong>{$lang->newpoints_user}:</strong><br/><span class="smalltext">{$lang->newpoints_user_desc}</span>
-            </td>
-            <td class="trow1" width="50%"><input type="text" name="username" value="{$user['username']}" class="textbox"
-                                                 id="username" size="20"/></td>
-        </tr>
-        <tr>
-            <td class="trow2" width="50%"><strong>{$lang->newpoints_amount}:</strong><br/><span class="smalltext">{$lang->newpoints_amount_desc}</span>
-            </td>
-            <td class="trow2" width="50%"><input type="text" name="amount" value="" class="textbox" size="20"/></td>
-        </tr>
-        <tr>
-            <td class="trow1" width="50%"><strong>{$lang->newpoints_reason}:</strong><br/><span class="smalltext">{$lang->newpoints_reason_desc}</span>
-            </td>
-            <td class="trow1" width="50%"><input type="text" name="reason" value="" class="textbox" size="20"/></td>
-        </tr>
-    </table>
-    <br/>
-    <div align="center">
-        <input type="submit" name="submit" value="{$lang->newpoints_submit}" class="button"/>
+
+    <!-- Donation Form Card -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <strong>{$lang->newpoints_donate}</strong>
+        </div>
+        <div class="card-body">
+            <!-- User Field -->
+            <div class="mb-3">
+                <label for="username" class="form-label"><strong>{$lang->newpoints_user}:</strong></label>
+                <span class="form-text text-muted">{$lang->newpoints_user_desc}</span>
+                <input type="text" name="username" value="{$user['username']}" class="form-control" id="username" size="20"/>
+            </div>
+            
+            <!-- Amount Field -->
+            <div class="mb-3">
+                <label for="amount" class="form-label"><strong>{$lang->newpoints_amount}:</strong></label>
+                <span class="form-text text-muted">{$lang->newpoints_amount_desc}</span>
+                <input type="text" name="amount" value="" class="form-control" id="amount" size="20"/>
+            </div>
+            
+            <!-- Reason Field -->
+            <div class="mb-3">
+                <label for="reason" class="form-label"><strong>{$lang->newpoints_reason}:</strong></label>
+                <span class="form-text text-muted">{$lang->newpoints_reason_desc}</span>
+                <input type="text" name="reason" value="" class="form-control" id="reason" size="20"/>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button type="submit" name="submit" value="{$lang->newpoints_submit}" class="btn btn-primary">
+                {$lang->newpoints_submit}
+            </button>
+        </div>
     </div>
 </form>
