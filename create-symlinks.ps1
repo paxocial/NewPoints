@@ -1,13 +1,15 @@
 # Paths
-$pluginPath = "C:\\wamp64\\www\\mybb-plugin-repos\\NewPoints\\Upload"
-$mybbPath = "C:\\wamp64\\www\\mybb\\ryu"
+$pluginPath = "C:\wamp64\www\mybb-plugin-repos\NewPoints\Upload"
+$mybbPath   = "C:\wamp64\www\mybb\ryu"
 
-# Excluded files or directories
-$exclusions = @(".git", "filetree.txt", "*.log", "create-symlinks.ps1")
+# Excluded files and directories
+$exclusions = @(".git", "*.log", "*.ps1", "filetree.txt")
 
-# Function to check if a file or folder is excluded
+# Function to check if a file or folder should be excluded
 function IsExcluded {
-    param ([string]$relativePath)
+    param (
+        [string]$relativePath
+    )
     foreach ($exclude in $exclusions) {
         if ($relativePath -like "*$exclude*") {
             return $true
@@ -16,18 +18,32 @@ function IsExcluded {
     return $false
 }
 
-# Recursively scan the plugin folder and create symlinks
+# Function to recursively scan the plugin folder and create symlinks
 function CreateSymlinks {
-    param ([string]$sourceDir, [string]$targetDir)
+    param (
+        [string]$sourceDir,
+        [string]$targetDir
+    )
 
+    # Validate directories
+    if (!(Test-Path -Path $sourceDir)) {
+        Write-Error "Source directory does not exist: $sourceDir"
+        return
+    }
+
+    if (!(Test-Path -Path $targetDir)) {
+        Write-Host "Creating target directory: $targetDir"
+        New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
+    }
+
+    # Get all files and directories recursively from source
     Get-ChildItem -Path $sourceDir -Recurse | ForEach-Object {
-        # Ensure the item is within the source directory and calculate the relative path
         $fullPath = $_.FullName
-        if ($fullPath.Length -le $sourceDir.Length) {
-            return
-        }
 
-        $relativePath = $fullPath.Substring($sourceDir.Length + 1)
+        # Compute the relative path by removing the source directory portion
+        $relativePath = $fullPath.Substring($sourceDir.Length)
+        # Trim any leading slashes
+        $relativePath = $relativePath.TrimStart("\", "/")
 
         # Skip excluded files or directories
         if (IsExcluded -relativePath $relativePath) {
@@ -35,28 +51,32 @@ function CreateSymlinks {
             return
         }
 
-        # Determine source and target paths
-        $sourcePath = $fullPath
+        # Determine the final path in the MyBB folder
         $targetPath = Join-Path $targetDir $relativePath
 
-        # Ensure the target directory exists
-        $targetDirPath = Split-Path $targetPath
-        if (!(Test-Path $targetDirPath)) {
-            Write-Host "Creating directory: $targetDirPath"
-            New-Item -ItemType Directory -Path $targetDirPath -Force | Out-Null
+        if ($_.PSIsContainer) {
+            # -- REAL DIRECTORIES + FILE SYMLINKS --
+            # Create an actual directory (not a symlink) if it doesn't exist
+            if (!(Test-Path $targetPath)) {
+                Write-Host "Creating directory: $targetPath"
+                New-Item -ItemType Directory -Path $targetPath -Force | Out-Null
+            }
         }
-
-        # Handle files
-        if ($_.PSIsContainer -eq $false) {
-            # Remove existing target file/symlink if it exists
+        else {
+            # Remove existing target file or symlink if it exists
             if (Test-Path $targetPath) {
-                Write-Host "Deleting existing file/symlink: $targetPath"
+                Write-Host "Removing existing file/symlink: $targetPath"
                 Remove-Item -Path $targetPath -Force
             }
-
-            # Create the symlink
-            Write-Host "Creating symlink: $targetPath -> $sourcePath"
-            New-Item -ItemType SymbolicLink -Path $targetPath -Target $sourcePath | Out-Null
+            # Create a file symlink
+            Write-Host "Creating symlink: $targetPath -> $fullPath"
+            try {
+                New-Item -ItemType SymbolicLink -Path $targetPath -Target $fullPath | Out-Null
+                Write-Host "Successfully created symlink for: $relativePath"
+            }
+            catch {
+                Write-Error "Failed to create symlink for: $relativePath"
+            }
         }
     }
 }
@@ -64,4 +84,4 @@ function CreateSymlinks {
 # Run the symlink creation
 CreateSymlinks -sourceDir $pluginPath -targetDir $mybbPath
 
-Write-Host "Symlink creation completed!"
+Write-Host "Symlink creation completed successfully!"

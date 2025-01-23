@@ -5,30 +5,19 @@
 </head>
 <body>
 {$header}
-
-<div class="container my-4">
-    <div class="row">
-        <!-- Sidebar Menu -->
-        <div class="col-md-3 mb-4">
+<table width="100%" border="0" align="center">
+    <tr>
+        <td valign="top" width="180">
             {$newpoints_menu}
-        </div>
-
-        <!-- Donation Form -->
-        <div class="col-md-9">
+        </td>
+        <td valign="top">
             {$form}
-        </div>
-    </div>
-</div>
-
+        </td>
+    </tr>
+</table>
 {$footer}
-
-<!-- Select2 CSS -->
 <link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css">
-
-<!-- Select2 JS -->
 <script type="text/javascript" src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1804"></script>
-
-<!-- Initialize Select2 -->
 <script type="text/javascript">
     <!--
     if (use_xmlhttprequest == "1") {
@@ -38,22 +27,19 @@
             minimumInputLength: 3,
             maximumSelectionSize: 3,
             multiple: false,
-            width: '150px',
-            ajax: { 
+            width: 150,
+            ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
                 url: "xmlhttp.php?action=get_users",
                 dataType: 'json',
-                delay: 250, // Added delay for better UX
-                data: function (params) {
+                data: function (term, page) {
                     return {
-                        query: params.term, // search term
+                        query: term, // search term
                     };
                 },
-                processResults: function (data) { 
-                    return {
-                        results: data
-                    };
-                },
-                cache: true
+                results: function (data, page) { // parse the results into the format expected by Select2.
+                    // since we are using custom formatting functions we do not need to alter remote JSON data
+                    return {results: data};
+                }
             },
             initSelection: function (element, callback) {
                 var value = $(element).val();
@@ -74,7 +60,6 @@
             },
         });
 
-        // Open Select2 on label click
         $('[for=username]').click(function () {
             $("#username").select2('open');
             return false;
